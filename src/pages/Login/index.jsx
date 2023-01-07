@@ -52,6 +52,7 @@ export const Login = () => {
               type="email"
               placeholder="E-mail"
               label="E-mail"
+              // autoComplete="off"
               {...register("email")}
             />
             <StyledInputLabel className="text">E-mail</StyledInputLabel>
