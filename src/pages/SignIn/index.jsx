@@ -20,11 +20,22 @@ import { useState } from "react";
 const schema = yup.object({
   name: yup.string().required("Campo obrigatório"),
   email: yup.string().email("E-mail inválido").required("Campo obrigatório"),
-  password: yup.string().required("Campo obrigatório"),
+  password: yup
+    .string()
+    .required("Campo obrigatório")
+    .matches(/(?=.*[A-Z])/, "Ao menos uma letra maiúscula")
+    .matches(/(?=.*[a-z])/, "Ao menos uma letra minúscula")
+    .matches(/\d/g, "Ao menos um número")
+    .matches(/(?=.*[@$!%*#?&])/, "Ao menos um caracter especial")
+    .matches(/[A-Za-z\d@$!%*#?&]{8,}/g, "Ao menos 8 caracteres"),
   confirmPassword: yup
     .string()
+    .required("Campo obrigatório")
     .oneOf([yup.ref("password"), null], "As senham devem ser iguais"),
-  github: yup.string().required("Campo obrigatório").url("Link inválido"),
+  github: yup
+    .string()
+    .required("Campo obrigatório")
+    .url(`Link inválido ("https://...")`),
 });
 
 export const SignIn = () => {
